@@ -142,3 +142,25 @@ class Player(wizard):
     def healthbar(self, window):
         pygame.draw.rect(window, (255,0,0), (self.x, self.y + self.wizard_img.get_height() + 10, self.wizard_img.get_width(), 10))
         pygame.draw.rect(window, (0,255,0), (self.x, self.y + self.wizard_img.get_height() + 10, self.wizard_img.get_width() * (self.health/self.max_health), 10))
+
+#enemy(wizard)
+class Enemy(wizard):
+    COLOR_MAP = {
+                "witch": (WITCH, SKULL),
+                "bat": (BAT,SKULL),
+                "witch1": (WITCH1, SKULL)
+                }
+
+    def __init__(self, x, y, color, health=100):
+        super().__init__(x, y, health)
+        self.wizard_img, self.ball_img = self.COLOR_MAP[color]
+        self.mask = pygame.mask.from_surface(self.wizard_img)
+
+    def move(self, vel):
+        self.y += vel
+
+    def shoot(self):
+        if self.cool_down_counter == 0:
+            ball = Ball(self.x-20, self.y, self.ball_img)
+            self.balls.append(ball)
+            self.cool_down_counter = 1
