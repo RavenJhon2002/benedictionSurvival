@@ -59,3 +59,78 @@ class Ball:
     def collision(self, obj):
         return collide(self, obj)
 
+#code sa wizard
+class wizard:
+    COOLDOWN = 30
+
+    def __init__(self, x, y, health=100):
+        self.x = x
+        self.y = y
+        self.health = health
+        self.wizard_img = None
+        self.ball_img = None
+        self.balls = []
+        self.cool_down_counter = 0
+
+    def draw(self, window):
+        window.blit(self.wizard_img, (self.x, self.y))
+        for ball in self.balls:
+            ball.draw(window)
+
+    def move_balls(self, vel, obj):
+        self.cooldown()
+        for ball in self.balls:
+            ball.move(vel)
+            if ball.off_screen(HEIGHT):
+                self.balls.remove(ball)
+            elif ball.collision(obj):
+                obj.health -= 10
+                if obj.health == 0:
+                    GameOver_fx.play()
+                elif obj.health > 0:
+                    Damaged_fx.play()
+                self.balls.remove(ball)
+
+    def cooldown(self):
+        if self.cool_down_counter >= self.COOLDOWN:
+            self.cool_down_counter = 0
+        elif self.cool_down_counter > 0:
+            self.cool_down_counter += 1
+
+    def shoot(self):
+        if self.cool_down_counter == 0:
+            shoot_fx.play()
+            ball = Ball(self.x, self.y, self.ball_img)
+            self.balls.append(ball)
+            self.cool_down_counter = 1
+
+    def get_width(self):
+        return self.wizard_img.get_width()
+
+    def get_height(self):
+        return self.wizard_img.get_height()
+
+#player(wizard)
+class Player(wizard):
+    def __init__(self, x, y, health=100):
+        super().__init__(x, y, health)
+        self.wizard_img = WIZARD_PLAYER
+        self.ball_img = FIREBALL
+        self.mask = pygame.mask.from_surface(self.wizard_img)
+        self.max_health = health
+        self.score = 0
+        self.pause = False
+
+    def move_balls(self, vel, objs):
+        self.cooldown()
+        for ball in self.balls:
+            ball.move(vel)
+            if ball.off_screen(HEIGHT):
+                self.balls.remove(ball)
+            else:
+                for obj in objs:
+                    if ball.collision(obj):
+                        objs.remove(obj)
+                        self.score+=10
+                        if ball in self.balls:
+                            self.balls.remove(ball)
