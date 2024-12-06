@@ -164,7 +164,7 @@ class Enemy(wizard):
             ball = Ball(self.x-20, self.y, self.ball_img)
             self.balls.append(ball)
             self.cool_down_counter = 1
-            
+
 def collide(obj1, obj2):
     offset_x = obj2.x - obj1.x
     offset_y = obj2.y - obj1.y
@@ -264,6 +264,6 @@ def main():
                 enemies.append(enemy)
 
             
-        for Event in pygame.event.get():
+        for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                Quit()
+                quit()
