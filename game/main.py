@@ -169,3 +169,101 @@ def collide(obj1, obj2):
     offset_x = obj2.x - obj1.x
     offset_y = obj2.y - obj1.y
     return obj1.mask.overlap(obj2.mask, (offset_x, offset_y)) != None
+
+
+def main():
+    run = True
+    FPS = 60
+    level = 0
+    lives = 5
+    main_font = pygame.font.SysFont("Times New Roman", 50)
+    lost_font = pygame.font.SysFont("Times New Roman", 60)
+    pause_font = pygame.font.SysFont("Times New Roman", 120)
+    pause_button = button.Button(10, 660, PAUSE_BUTTON, 1)
+    resume_button = button.Button(WIDTH // 2 - 30, 400, RESUME_BUTTON, 1)
+    enemies = []
+    wave_length = 5
+    enemy_vel = 1
+
+    player_vel = 5
+    ball_vel = 5
+
+    player = Player(300, 630)
+
+    clock = pygame.time.Clock()
+
+    lost = False
+    lost_count = 0
+
+    def redraw_window():
+        WIN.blit(BG, (0,0))
+        # draw text
+        if player.pause == False:
+            lives_label = main_font.render(f"Lives: {lives}", 1, (255,255,255))
+            level_label = main_font.render(f"Level: {level}", 1, (255,255,255))
+            score_label = main_font.render(f"Score: {player.score}", 1, (255,255,255))
+            
+            WIN.blit(lives_label, (10, 10))
+            WIN.blit(score_label, (10, 50))
+            WIN.blit(level_label, (WIDTH - level_label.get_width() - 10, 10))
+
+            for enemy in enemies:
+                enemy.draw(WIN)
+
+            player.draw(WIN)
+            
+            if pause_button.draw(WIN):
+                player.pause = True
+                pygame.mixer.music.set_volume(0)
+                
+            if lost:
+                WIN.blit(BG, (0,0))
+                pygame.mixer.music.set_volume(0)
+                lost_label = lost_font.render("You Lost!!", 1, (255,255,255))
+                WIN.blit(lost_label, (WIDTH/2 - lost_label.get_width()/2, 300))
+                finalscore_label = lost_font.render(f"Your score is: {player.score}", 1, (255,255,255))
+                WIN.blit(finalscore_label, (210, 350))
+
+        if player.pause == True:
+            WIN.blit(BG, (0,0))
+            pause_label = pause_font.render(f"Game Paused",3,(255,255,255))
+            WIN.blit(pause_label,(WIDTH/2 - pause_label.get_width()/2, 300))
+
+            if resume_button.draw(WIN):
+                player.pause = False
+                pygame.mixer.music.set_volume(0.1)
+                
+        pygame.display.update()
+        
+    while run:
+        clock.tick(FPS)
+        redraw_window()
+        if lives <= 0 or player.health <= 0:
+            
+            lost = True
+            lost_count += 1
+
+        if lost:
+            if lost_count > FPS * 3:
+                run = False
+            else:
+                continue
+
+        if len(enemies) == 0:
+            level += 1
+            
+            if level==2:
+                lives += 4
+            
+            if level==3:
+                lives += 4
+            
+            wave_length += 5
+            for i in range(wave_length):
+                enemy = Enemy(random.randrange(50, WIDTH-100), random.randrange(-1500, -100), random.choice(["witch", "bat", "witch1"]))
+                enemies.append(enemy)
+
+            
+        for Event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                Quit()
