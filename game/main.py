@@ -317,7 +317,7 @@ def main_menu():
             if event.type == pygame.QUIT:
                 run = False
             if event.type == pygame.MOUSEBUTTONDOWN:
-                pygame.mixer.music.load('assets/Music1.mp3')
+                pygame.mixer.music.load('game/assets/Music1.mp3')
                 pygame.mixer.music.set_volume(0.1)
                 pygame.mixer.music.play(-1, 0.0)
                 main()
