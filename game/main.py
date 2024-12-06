@@ -14,30 +14,30 @@ pygame.display.set_caption("Benediction Survival")
 shoot_fx = pygame.mixer.Sound('game/assets/Fireball.mp3')
 shoot_fx.set_volume(0.7)
 
-GameOver_fx = pygame.mixer.Sound('assets/GameOver.mp3')
+GameOver_fx = pygame.mixer.Sound('game/assets/GameOver.mp3')
 GameOver_fx.set_volume(0.5)
 
-Damaged_fx = pygame.mixer.Sound('assets/Damaged.mp3')
+Damaged_fx = pygame.mixer.Sound('game/assets/Damaged.mp3')
 Damaged_fx.set_volume(0.5)
 
 # Load images
-WITCH = pygame.image.load(os.path.join("assets", "witch.png"))
-BAT = pygame.image.load(os.path.join("assets", "bat.png"))
-WITCH1 = pygame.image.load(os.path.join("assets", "witch.png"))
-PAUSE_BUTTON = pygame.image.load(os.path.join("assets", "pause.png"))
-RESUME_BUTTON = pygame.image.load(os.path.join("assets", "resume.png"))
-TITLE = pygame.image.load(os.path.join("assets", "title.png"))
+WITCH = pygame.image.load(os.path.join("game/assets", "witch.png"))
+BAT = pygame.image.load(os.path.join("game/assets", "bat.png"))
+WITCH1 = pygame.image.load(os.path.join("game/assets", "witch.png"))
+PAUSE_BUTTON = pygame.image.load(os.path.join("game/assets", "pause.png"))
+RESUME_BUTTON = pygame.image.load(os.path.join("game/assets", "resume.png"))
+TITLE = pygame.image.load(os.path.join("game/assets", "title.png"))
 
 # Player player
-WIZARD_PLAYER = pygame.image.load(os.path.join("assets", "player.png"))
+WIZARD_PLAYER = pygame.image.load(os.path.join("game/assets", "player.png"))
 
 # Balls
-SKULL = pygame.image.load(os.path.join("assets", "skull.png"))
+SKULL = pygame.image.load(os.path.join("game/assets", "skull.png"))
 
-FIREBALL = pygame.image.load(os.path.join("assets", "fireball.png"))
+FIREBALL = pygame.image.load(os.path.join("game/assets", "fireball.png"))
 
 # Background
-BG = pygame.transform.scale(pygame.image.load(os.path.join("assets", "bg1.png")), (WIDTH, HEIGHT))
+BG = pygame.transform.scale(pygame.image.load(os.path.join("game/assets", "bg1.png")), (WIDTH, HEIGHT))
 
 # code sa ball
 class Ball:
