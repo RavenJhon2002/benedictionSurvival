@@ -302,3 +302,26 @@ def main():
                     enemies.remove(enemy)
 
         player.move_balls(-ball_vel, enemies)
+
+#mainmenu
+def main_menu():
+    title_font = pygame.font.SysFont("Times New Roman", 40)
+    run = True
+    while run:
+        WIN.blit(BG, (0,0))
+        WIN.blit(TITLE, (WIDTH/2 - TITLE.get_width()/2,280))
+        title_label = title_font.render("Press the mouse to begin...", 1, (255,255,255))
+        WIN.blit(title_label, (WIDTH/2 - title_label.get_width()/2, 500))
+        pygame.display.update()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                run = False
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                pygame.mixer.music.load('assets/Music1.mp3')
+                pygame.mixer.music.set_volume(0.1)
+                pygame.mixer.music.play(-1, 0.0)
+                main()
+    pygame.quit()
+
+
+main_menu()
