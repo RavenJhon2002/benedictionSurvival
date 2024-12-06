@@ -11,7 +11,7 @@ WIDTH, HEIGHT = 750, 750
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Benediction Survival")
 
-shoot_fx = pygame.mixer.Sound('assets/Fireball.mp3')
+shoot_fx = pygame.mixer.Sound('game/assets/Fireball.mp3')
 shoot_fx.set_volume(0.7)
 
 GameOver_fx = pygame.mixer.Sound('assets/GameOver.mp3')
