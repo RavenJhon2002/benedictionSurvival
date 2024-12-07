@@ -193,6 +193,7 @@ def main():
     clock = pygame.time.Clock()
 
     lost = False
+    won = False
     lost_count = 0
 
     def redraw_window():
@@ -223,6 +224,15 @@ def main():
                 WIN.blit(lost_label, (WIDTH/2 - lost_label.get_width()/2, 300))
                 finalscore_label = lost_font.render(f"Your score is: {player.score}", 1, (255,255,255))
                 WIN.blit(finalscore_label, (210, 350))
+            
+            if won:
+                WIN.blit(BG, (0,0))
+                pygame.mixer.music.set_volume(0)
+                lost_label = lost_font.render("You Successfully Survived, Benedict!!", 1, (255,255,255))
+                WIN.blit(lost_label, (WIDTH/2 - lost_label.get_width()/2, 300))
+                finalscore_label = lost_font.render(f"Your score is: {player.score}", 1, (255,255,255))
+                WIN.blit(finalscore_label, (210, 350))
+
 
         if player.pause == True:
             WIN.blit(BG, (0,0))
@@ -254,9 +264,14 @@ def main():
             
             if level==2:
                 lives += 4
+                player.health += 40
             
             if level==3:
                 lives += 4
+                player.health += 40
+            
+            if level==4:
+                won = True
             
             wave_length += 5
             for i in range(wave_length):
