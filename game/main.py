@@ -228,7 +228,7 @@ def main():
             if won:
                 WIN.blit(BG, (0,0))
                 pygame.mixer.music.set_volume(0)
-                lost_label = lost_font.render("You Successfully Survived, Benedict!!", 1, (255,255,255))
+                lost_label = lost_font.render("You Finished The Game!!", 1, (255,255,255))
                 WIN.blit(lost_label, (WIDTH/2 - lost_label.get_width()/2, 300))
                 finalscore_label = lost_font.render(f"Your score is: {player.score}", 1, (255,255,255))
                 WIN.blit(finalscore_label, (210, 350))
@@ -263,10 +263,12 @@ def main():
             level += 1
             
             if level==2:
+                FPS +=10
                 lives += 4
                 player.health += 40
             
             if level==3:
+                FPS += 10
                 lives += 4
                 player.health += 40
             
